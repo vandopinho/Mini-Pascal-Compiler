@@ -39,6 +39,7 @@
         <!--
          mandatory attributes: srcdir, destdir
          optional attributes: excludes, library, listener, visitor, codePackage, atn
+         visitor     = "${antlr.generator.option.code.visitor}" 
          -->
         <antlr4 srcdir      = "${antlr.generator.src.dir}"
                 excludes    = "${antlr.generator.src.excluded}"
@@ -46,7 +47,7 @@
                 destdir     = "${antlr.generator.dest.dir}"
                 library     = "${antlr.generator.jar}"
                 listener    = "${antlr.generator.option.code.listener}"
-                visitor     = "${antlr.generator.option.code.visitor}"
+                visitor     = "true" 
                 codePackage = "${antlr.generator.option.code.package}"
                 atn         = "${antlr.generator.option.atn}">
         </antlr4>

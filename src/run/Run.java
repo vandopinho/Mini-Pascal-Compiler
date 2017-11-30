@@ -1,28 +1,30 @@
 
-package basicintast;
+package run;
 
-import basicintast.parser.BasicLexer;
-import basicintast.parser.BasicParser;
-import basicintast.parser.BasicVisitor;
-import basicintast.util.BasicVisitorImpl;
+
 import java.io.IOException;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import run.parser.GrammarLexer;
+import run.parser.GrammarParser;
+import run.parser.GrammarVisitor;
+import run.util.GrammarVisitorImpl;
 
 public class Run {
 
     public static void main(String[] args) throws IOException {
-        ANTLRInputStream input = new ANTLRFileStream("input.basic");
-        BasicLexer lexer = new BasicLexer(input);
+        ANTLRInputStream input = new ANTLRFileStream("input");
+        GrammarLexer lexer = new GrammarLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        BasicParser parser = new BasicParser(tokens);
-
+        GrammarParser parser = new GrammarParser(tokens);
+        
         ParseTree tree = parser.program();
-
-        BasicVisitor eval = new BasicVisitorImpl();
+        
+        GrammarVisitor eval = new GrammarVisitorImpl();
         eval.visit(tree);
+
     }
 
 }
