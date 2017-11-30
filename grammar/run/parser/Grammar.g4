@@ -11,11 +11,13 @@ program : PROG ID EOL declaration               #programStart
         ;
 
 
-declaration : var? functions? block                       #declarations;   
+declaration : var? procedure? function? block                       #declarations;   
 
 
-functions : FUNCTION ID OPEN (variavelF)* CLOSE EOL var? block    #function
+procedure : PROCEDUR ID OPEN (variavelF)* CLOSE EOL var? block    #procedur3
           ;
+
+function : FUNCTION ID OPEN (variavelF)+ CLOSE POINTS types EOL var? block     #functi0n;
 
 block : BEGIN (block2)* END                                  #bloco
       ;
@@ -26,13 +28,13 @@ block2   : write EOL                                      #blockWrite
         | expr  EOL                                      #blockExp
         | cond                                           #blockCond
         | whil3                                          #blockWhile
+        | f0r                                            #blockf0r
         ;
 
 whil3 : WHILE condExpr DO x=block                   #whilex;
 
-//f0r
+f0r : FOR OPEN attr? EOL condExpr EOL attr? CLOSE block bl=block at=attr            #forex; 
 
-//writeln
 
 //array
 
@@ -47,6 +49,8 @@ condExpr: expr                                           #condExpresion
 
 write   : WRITE OPEN STR CLOSE                                      #writeSTR
         | WRITE OPEN expr CLOSE                                     #writeEXP
+        | WRITELN OPEN STR CLOSE                                    #writelnSTR
+        | WRITELN OPEN expr CLOSE                                   #writelnEXP
         ;
 
 read    : READ OPEN ID CLOSE                                   #readVar
@@ -71,15 +75,13 @@ expr2   : '(' expr ')'                                   #expr2Par
         | STR                                           #expr2Str
         ;
 
-var : VAR variavel1                                      #varVAR
+var : VAR (variavel1)+                                      #varVAR
     ;
 
-variavel1 : ID  POINTS types EOL (variavel1)*         #varDeclaration
-          | ID ',' variavel1                       #varComma
+variavel1 : ID (',' ID)* POINTS types EOL         #varDeclaration
           ;
 
-variavelF : ID  POINTS types                               #varFunc
-          | ID ',' variavelF                               #varFuncComma
+variavelF : ID  (',' ID)* POINTS types                               #varFunc
           ;
 
 types : CHAR                                             #typeChar
@@ -93,6 +95,7 @@ types : CHAR                                             #typeChar
 
 //TOKENS
 PROG    : 'program';
+FOR     : 'for';
 VAR     : 'var';
 DOT     : '.';
 IF      : 'if';
@@ -103,7 +106,6 @@ NOT     : 'not';
 THEN    : 'then';
 OF      : 'of';
 WHILE   : 'while';
-FOR     : 'for';
 DO      : 'do';
 BEGIN   : 'begin';
 END     : 'end;';
@@ -112,7 +114,8 @@ LT      : '<' ;
 EQ      : '==';
 GE      : '>=';
 LE      : '<=';                         
-FUNCTION: 'procedure';                                 
+FUNCTION: 'function'; 
+PROCEDUR: 'procedure';                                
 NE      : '<>';
 PLUS    : '+' ;
 MINUS   : '-' ;

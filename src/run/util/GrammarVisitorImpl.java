@@ -26,6 +26,18 @@ public class GrammarVisitorImpl extends GrammarBaseVisitor<Object> {
         }
         return visit(ctx.x);
     }
+
+    @Override
+    public Object visitForex(GrammarParser.ForexContext ctx) { 
+        Boolean cond = (Boolean) visit(ctx.condExpr());
+        while(cond){
+            cond = (Boolean) visit (ctx.condExpr());
+            visit (ctx.bl);
+            visit (ctx.at);
+        }
+        return 0d;
+    }
+    
     @Override
     public Object visitCondIfElse(GrammarParser.CondIfElseContext ctx) {
         Boolean cond = (Boolean) visit(ctx.condExpr());
@@ -92,7 +104,8 @@ public class GrammarVisitorImpl extends GrammarBaseVisitor<Object> {
     public Object visitVarDeclaration(GrammarParser.VarDeclarationContext ctx) {
         Object[] var = new Object[2];
         var[0] = ctx.types().getText();
-        SymbolsTable.getInstance().addSymbol(ctx.getText(), var);
+
+        SymbolsTable.getInstance().addSymbol(ctx.ID().get(0).getText(), var);
         return 0d;
     }
 

@@ -1,17 +1,9 @@
 program foo;
-var
-    x: Integer;
-procedure dro();
-begin
-    read(x);
-    write (x);
-end;
-
-function soma(x,y: Integer): integer
-begin
-    soma:= x+y;
-end;
+var 
+    x: int;
 
 begin
-    dro();
+x:=10 ;
+write (x);
+
 end;
