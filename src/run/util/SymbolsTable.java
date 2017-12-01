@@ -30,5 +30,25 @@ public class SymbolsTable {
         }
         return null;
     }
+        public String getType(String symbol) {
+        if (symbols.containsKey(symbol)) {
+
+            Object data[] = symbols.get(symbol);
+            return (String) data[0];
+
+        }
+        return "";
+    }
+
+    public Object getValue(String symbol) {
+        if (symbols.containsKey(symbol)) {
+
+            Object data[] = symbols.get(symbol);
+            return data[1];
+
+        }
+        return "";
+    }
+
     
 }
