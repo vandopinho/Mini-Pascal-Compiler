@@ -2,8 +2,15 @@ program foo;
 var 
     x: integer;
 
+procedure oi(z: string);
+var
+    y: integer;
 begin
-x:= 9;
+    y:=10;
+    write(y);
+end;
+begin
+read(x);
 write(x);
 
 end;

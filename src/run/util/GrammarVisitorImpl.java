@@ -199,11 +199,9 @@ public class GrammarVisitorImpl extends GrammarBaseVisitor<Object> {
                     throw new ParseCancellationException("Esperava uma string");
                 }
             }
-
         }else{
             throw new ParseCancellationException("Variavel inexistente");
-        }
-          
+        }         
     return 0;
     }
 }
