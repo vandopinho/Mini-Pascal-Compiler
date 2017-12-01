@@ -183,20 +183,20 @@ public class GrammarVisitorImpl extends GrammarBaseVisitor<Object> {
         Object[] var = SymbolsTable.getInstance().getSymbol(ctx.ID().getText());
             if(var[0].equals("float")){
                 var[1] = Float.parseFloat(aux.toString());
-            }else if(var[0].equals("int")){           
+            }else if(var[0].equals("integer")){           
                 var[1] = (int)Double.parseDouble(aux.toString());
             }
             else if(var[0].equals("boolean")){
                 if(aux.toString().equals("true") || aux.toString().equals("false")){
                     var[1] = aux;
                 }else{
-                    throw new ParseCancellationException("Tipo de variavel incorreta");
+                    throw new ParseCancellationException("Esperava um booleano");
                 }
             }else if(var[0].equals("string")){
-                if(aux.toString().startsWith("")){
+                if(aux.toString().startsWith("\"")){
                     var[1] = aux;
                 }else{
-                    throw new ParseCancellationException("Tipo de variavel incorreta");
+                    throw new ParseCancellationException("Esperava uma string");
                 }
             }
 

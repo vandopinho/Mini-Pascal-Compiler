@@ -88,7 +88,6 @@ variavelF : ID  (',' ID)* POINTS types                               #varFunc
           ;
 
 types : CHAR                                             #typeChar
-      | INT                                              #typeInt
       | FLT                                              #typeFloat
       | STRING                                           #typeString
       | INTEGER                                          #typeInteger
@@ -140,8 +139,7 @@ WRITELN : 'writeln';
 CHAR    : 'char';
 STRING  : 'string';
 NUM     : [0-9]+ ;
-INT     : 'int';
-INTEGER : 'Integer';
+INTEGER : 'integer';
 FLT     : 'float';
 BOL     : 'boolean';
 ID      : [a-zA-Z][a-zA-Z0-9_]*;
