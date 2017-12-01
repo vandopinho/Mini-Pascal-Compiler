@@ -36,8 +36,6 @@ whil3 : WHILE condExpr DO x=block                   #whilex;
 f0r : FOR OPEN attr? EOL condExpr EOL attr? CLOSE block bl=block at=attr            #forex; 
 
 
-//array
-
 cond    : IF '('condExpr')' THEN b1=block                     #condIf
         | IF '('condExpr')' THEN b1=block ELSE b2=block       #condIfElse 
         ;
@@ -73,7 +71,12 @@ expr2   : '(' expr ')'                                   #expr2Par
         | NUM                                            #expr2Num
         | ID                                            #expr2Id
         | STR                                           #expr2Str
+        | booleanex                                     #exprBool
         ;
+
+booleanex : TRUE                                          #exprTrue
+          | FALSE                                         #exprFalse
+          ;  
 
 var : VAR (variavel1)+                                      #varVAR
     ;
@@ -88,8 +91,8 @@ types : CHAR                                             #typeChar
       | INT                                              #typeInt
       | FLT                                              #typeFloat
       | STRING                                           #typeString
-      | BOL                                              #typeBol
       | INTEGER                                          #typeInteger
+      | booleanex                                          #typeBoolean
       ;
 
 
@@ -109,6 +112,8 @@ WHILE   : 'while';
 DO      : 'do';
 BEGIN   : 'begin';
 END     : 'end;';
+TRUE    : 'true';
+FALSE   : 'false';
 GT      : '>' ;
 LT      : '<' ;
 EQ      : '==';

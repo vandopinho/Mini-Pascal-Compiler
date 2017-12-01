@@ -1,9 +1,9 @@
 program foo;
 var 
-    x: int;
+    x: string;
 
 begin
-x:=10 ;
-write (x);
+read(x);
+write(x);
 
 end;

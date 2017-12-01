@@ -5,6 +5,7 @@ import run.parser.GrammarBaseVisitor;
 import run.parser.GrammarLexer;
 import run.parser.GrammarParser;
 import java.util.Scanner;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 
 public class GrammarVisitorImpl extends GrammarBaseVisitor<Object> {
@@ -80,7 +81,17 @@ public class GrammarVisitorImpl extends GrammarBaseVisitor<Object> {
     @Override
     public Object visitWriteSTR(GrammarParser.WriteSTRContext ctx) {
         String val = ctx.STR().getText();
+        char aspas = '\0';
+        val = val.replace('"', aspas);
         System.out.println(val);
+        return 0d;
+    }
+    @Override
+    public Object visitWritelnSTR(GrammarParser.WritelnSTRContext ctx){
+        String val = ctx.STR().getText();
+        char aspas = '\0';
+        val = val.replace('"', aspas);
+        System.out.println(val + "\n");
         return 0d;
     }
 
@@ -90,7 +101,12 @@ public class GrammarVisitorImpl extends GrammarBaseVisitor<Object> {
         System.out.println(o);
         return o;
     }
-
+    @Override
+    public Object visitWritelnEXP(GrammarParser.WritelnEXPContext ctx){
+        Object o = visit(ctx.expr());
+        System.out.println(o + "\n");
+        return o;
+    }
     @Override
     public Object visitReadVar(GrammarParser.ReadVarContext ctx) {
         Scanner s = new Scanner(System.in);
@@ -104,7 +120,6 @@ public class GrammarVisitorImpl extends GrammarBaseVisitor<Object> {
     public Object visitVarDeclaration(GrammarParser.VarDeclarationContext ctx) {
         Object[] var = new Object[2];
         var[0] = ctx.types().getText();
-
         SymbolsTable.getInstance().addSymbol(ctx.ID().get(0).getText(), var);
         return 0d;
     }
@@ -163,8 +178,32 @@ public class GrammarVisitorImpl extends GrammarBaseVisitor<Object> {
     }
     
     @Override public Object visitAttrExpr(GrammarParser.AttrExprContext ctx) {
-        Object[] lista = SymbolsTable.getInstance().getSymbol(ctx.ID().getText());
-        lista[1] = visit(ctx.expr());
-        return 0d;
+        if(SymbolsTable.getInstance().getSymbol(ctx.ID().getText()) != null){Object aux = visit(ctx.expr());
+        if(aux == null){aux = ctx.expr().getText();} 
+        Object[] var = SymbolsTable.getInstance().getSymbol(ctx.ID().getText());
+            if(var[0].equals("float")){
+                var[1] = Float.parseFloat(aux.toString());
+            }else if(var[0].equals("int")){           
+                var[1] = (int)Double.parseDouble(aux.toString());
+            }
+            else if(var[0].equals("boolean")){
+                if(aux.toString().equals("true") || aux.toString().equals("false")){
+                    var[1] = aux;
+                }else{
+                    throw new ParseCancellationException("Tipo de variavel incorreta");
+                }
+            }else if(var[0].equals("string")){
+                if(aux.toString().startsWith("")){
+                    var[1] = aux;
+                }else{
+                    throw new ParseCancellationException("Tipo de variavel incorreta");
+                }
+            }
+
+        }else{
+            throw new ParseCancellationException("Variavel inexistente");
+        }
+          
+    return 0;
     }
 }
