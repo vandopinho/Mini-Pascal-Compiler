@@ -1,0 +1,27 @@
+----------------Documentação-----------------
+----Interpretador e Tradutor de Mini Pascal--
+
+O interpretador e o tradutor da linguagem Mini Pascal, foi desenvolvido em java utilizando o plugin ANTLRv4 
+para fazer a gramática, lexer e o parser, devido a facilidade que o Antlr proporciona.
+
+---Na parte da gramática, analisa-se a sintaxe do Mini Pascal, fazendo a derivação as quias são necessárias 
+para a interpretação e tradução da linguagem. Então na classe "Grammar" foi definida a derivação e os tokens,
+responsáveis pela identificação dos elementos do código do Pascal.
+
+---Usando Antlr, após a definição das regras e dos tokens, solicitando o build do projeto, é gerado várias classes
+as quais são necessárias para a identificação das regras. Entre elas é criada uma classe Visitor, responsável pela busca 
+nos nós de cada elemento derivado e onde há especificado o que cada elemento da derivação deve fazer.
+
+---Na calsse Visitor são descritos as regras, por exemplo, de como um laço de repetição deve se comportar e como fazer verificação de tipo. 
+Nesse projeto, foram feitos as regras de estruturas de decisão, laços de repetição, entrada e saída e a atribuição de variável.
+Para que ficasse completo ainda falta a verificação de tipos de variavel, as regras de funções e do "procedure".
+
+---Foi criado uma tabela de símbolos para que as informações das variáveis fossem, guardadas usando "HashMap" para adicionar chave e valor
+na variável responsável por guardar os dados e identificar os símbolos.
+
+---Partindo para a parte do tradutor, é necessário escrever a tradução em algum arquivo, então foi criado uma classe com métodos para gerar
+esse arquivo. Já na classe "grammar" é feito direto na sintaxe a tradução e usa-se os métodos criados na classe "ArquivoC" para a escrita 
+no arquivo.
+
+---A classe "Run.java" é a principal responsavel por chamar e fazer a instância das classes para compilar o interpretador e o tradutor.
+
